@@ -1,0 +1,7 @@
+<div id="profile_holder">
+    <!--<span>< %= user._id ? user._id : '' % ></span><br>         Removed by NM 7/3/17 space added between % and >  -->
+    <!--<span>< %= user.email ? user.email : '' % ></span><br>            <!-- Get user details from login / user Model-->
+    <div><span class ="no_wrap"><%= user.name ? user.name : '' %></span><br></div>
+    <div class="profile_img_holder"> <img class="profile_pic" src=<%= user.pictureUrl ? user.pictureUrl : '' %>> </img> </div>
+    <div> <span class="fa fa-sign-out no_wrap"><a href="/logout"> Sign out</a></span></div>
+</div>

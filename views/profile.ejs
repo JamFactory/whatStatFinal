@@ -1,0 +1,717 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ./partials/head %>
+</head>
+<body>
+
+<!--<div id="landingPage">
+        <div>
+            <div class="col-md-4 col-sm-6 col-xs-0"></div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="imgHolder"><img src="./images/whatstat_logo.png" alt="whatstat logo"></div>
+            </div>
+        </div>
+</div>  -->
+
+<!--   ****************************************         LOGIN PAGE         ****************************************     -->
+
+<div class="row">
+    <% include ./partials/profile_head %>
+</div>
+
+
+<div id="login">
+    <div class="bootstrap-iso">
+        <div class="container-fluid">
+
+            <% include partials/whatstatheader.ejs %>    <!-- logo etc -->
+            </div>
+
+              <div class="row">
+                   <div class="col-md-4 col-sm-6 col-xs-0"></div>
+                   <div class="col-md-4 col-sm-6 col-xs-12">
+
+                            <div class="container-fluid center">
+                                <div class="btn btn-primary startButtons" id="gameStartBtn"> Game Setup </div>
+                                <div class="btn btn-warning startButtons" id="quickStart">Quick Start</div>
+                            </div>
+
+                     </div>
+              </div>    <!--end row -->
+        </div>  <!-- end container fluid -->
+    </div> <!-- end bootstarp iso -->
+</div> <!-- end Login -->
+
+
+<!--  ****************************************   SET UP PAGE  ****************************************    -->
+<!--MODALS here as they need to be outside any div with fixed position ****************************************  -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Stat Collector's Players</h4>
+            </div>
+            <div class="modal-body">
+                <ul class ="list-group" id="modalContent"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="modalClose" data-dismiss="modal">Back</button>
+                <button type="button" class="btn btn-success" id="modalNext" data-dismiss="modal">Next</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ******************************************** pitch modal ********************************************  -->
+<div class="modal fade" id="modalPitch" role="dialog">    <!-- pop up for next steps on pitch page -->
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="modalPitchHeader" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div  id="modalPitchContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="modalPitchNext" data-dismiss="modal">Next</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ***************************************************** SETUP HEADER ***************************************************************** -->
+<div id="setup" class="container-fluid">
+    <div class="col-md-4 col-sm-4 col-xs-1"> </div>
+    <div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="imgHolder"><img src="./images/whatstat_logo.png" alt="whatstat logo"> </div>
+        </div>
+    </div>
+</div>      <!-- END SETUP  -->
+
+
+<div class="" id="setupA">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-1"> </div>  <!-- spacer row  -->
+            <div class="col-md-4 col-sm-6 col-xs-10">
+                <form id="sportSetup">
+                    <div class="form-group">
+                        <!--<label for="sportSelect">Select Sport:</label> -->
+                        <select class="form-control" id="sportSelect" name="sportSelect"></select>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="homeTeamInput" name="homeTeamInput" placeholder="Home Team" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="awayTeamInput" name="awayTeamInput" placeholder="Away Team" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <!--   <label for="minsPerHalf">Mins per Half</label> -->
+                        <select class="form-control select" id="minsPerHalf"></select>
+                    </div>
+                    <div class="form-group">
+                        <!--    <label for="numberPlayers"> No. Players per Team</label> -->
+                        <select class="form-control select" id="numberPlayers" name="numberPlayers"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <!--    <label for="numStatCollectors"> No. Stat Collectors</label> -->
+                        <select class="form-control select" id="numStatCollectors" name="numStatCollectors"> </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="btn btn-primary form-control" id="setupSubmitBtn" name="submit" type="submit">Submit</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end setupA -->
+
+<div class="bootstrap-iso" id="setupB">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-0 col-xs-1"> </div><!-- spacer row  -->
+            <div class="col-md-4 col-sm-12 col-xs-10" id="">
+                <form method="post" id="addStats">
+                    <div class="form-group"><input class="form-control" id="addStatsInput" name="addStatsInput" placeholder="Add Extra Events Here" type="text" /></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-0 col-xs-1"> </div>
+            <!-- spacer row  -->
+            <div class="col-md-4 col-sm-12 col-xs-10" id="gameStats"></div>      <!-- stat buttos get gappended to this div -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-0 col-xs-1"> </div><!-- spacer row  -->
+            <div class="col-md-4 col-sm-12 col-xs-10">
+                <div class="addTopGap">
+
+                    <div class="btn btn-danger rr"  id="removeStats" name="removeStats" >Remove </div>
+                    <div class="btn btn-warning rr"  id="refreshStats" name="removeStats">Refresh </div>
+                </div>
+                <div class="addTopGap">
+                    <div class="btn btn-primary" id="submitStats" name="submitStats" >Submit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  <!-- END SETUPB -->
+
+<div class="bootstrap-iso" id="setupC">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-0 col-xs-0"></div>
+            <div class="col-md-4 col-sm-12 col-xs-12 " id="playerButtons"></div> <!-- player buttons get appended to this div -->
+        </div>
+        <!-- **************************************** -->
+        <div class="row">
+            <div class="col-md-4 col-sm-0 col-xs-0"></div>
+            <div class="col-md-4 col-sm-12 col-xs-12" >
+                <div id="playersPerCollector" class="addTopGap"></div>
+                <div class="well well-lg nmWell" id="statCollectorWell">
+                    <div class="row">SELECT PLAYERS FOR STAT COLLECTOR <span id="statCollectorSpan" class="badge pull-right"> </span>
+                    </div>
+                </div>
+                <div class="addTopGap">
+                    <button class="btn btn-primary" type="button"  id="collectorStats" name="collectorStats" data-toggle="modal" data-target="#myModal">Submit</button>  <!-- triggers the modal div -->
+                    <!--<button class="btn btn-warning" type="button"  id="arrangeButtons" name="arrangeButtons" >Arrange</button> -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- END SETUPC -->
+
+
+
+
+<!--   **************************************************   EMAIL INVITE USERS PAGE   ***********************************************     -->
+
+
+<div id="inviteUsers" class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-0"></div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="imgHolder"><img src="./images/whatstat_logo.png" alt="whatstat logo" ></div>
+        </div>
+    </div>
+
+    <div class="bootstrap-iso">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-sm-0 col-xs-0"></div>
+                <div class="col-md-5 col-sm-6 col-xs-12">
+                    <form class="form-horizontal" method="post" id="collectorEmailInputs">  </form>
+                    <div class="col-md-6 col-sm-10 col-sm-offset-2 pull-right">
+                        <button class="btn btn-primary " name="submit" type="submit" id="inviteEmailBtn">INVITE</button>
+                    </div>
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end container fluid-->
+    </div> <!-- end bootstrap iso-->
+</div>  <!-- end #inViteUsers -->
+
+
+
+
+<!--   ***************************************************  GAME START  **************************************************************     -->
+
+<div id="gameStart" class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 col-sm-0 col-xs-0">
+
+        </div>
+
+        <div class="col-md-3 col-xs-4">
+            <div class="imgHolder"  id="homeTeamLogo"><img class="img-circle" src="./images/dlspLogo.png" alt="DLSPlogo" ></img></div>
+            <div class="teamsScore" id="homeTeamScore"><h3>0</h3></div>
+            <div class="teamtext homeTeamText"></div>
+            <div class="teamCardHolder" id="homeTeamCardHolder"></div>   <!-- for yellow cards etc -->
+        </div>
+
+        <div class="col-md-3 col-xs-4" >
+            <div id="clockButton" >
+                <div class="imgHolder"><img src="./images/whatstat_logo.png" alt="whatstat logo" ></img></div>
+                <div class="clockHolder"><span id="mins">00</span>:<span id="secs">00</span></div>
+                <div id="clockOnOff" title="Tap WhatStat to Stop / Start">Clock Off</div>
+            </div>
+            <div class="btn btn-primary col-lg-12 col-sx-12" id="showStats">Show Stats</div>
+            <div class="btn btn-primary col-lg-12 col-sx-12" id="statsBackBtn">HOME</div>
+           <!-- <div class="btn btn-primary col-lg-12 col-sx-12" id="test">make chart</div>-->
+        </div>
+
+
+        <div class="col-md-3 col-xs-4">
+            <div class="imgHolder" id="awayTeamLogo"><img class="img-circle" src="./images/marysLogo.png" alt="Maryslogo" ></img></div>
+            <div class="teamsScore" id="awayTeamScore"><h3>0</h3></div>
+            <div class="teamtext awayTeamText" ></div>
+            <div class="teamCardHolder" id="awayTeamCardHolder"></div>    <!-- for yellow cards etc -->
+
+        </div>
+
+    </div> <!-- end row -->
+
+    <div class="col-md-2 col-sm-0 col-xs-0"></div>
+    <div id="statEventsHolder" class="col-md-9 col-sm-12 col-xs-12">
+        <div id="statEvents"></div>     <!-- stat descriptions buttons get appended here -->
+        <div id="teamEvents"></div>      <!-- team events e.g. Scrum / Lineout from teamEvents[] get appended here -->
+    </div>
+
+    <div id="statNumbers" class="col-md-9 col-sm-12 col-xs-12">
+        <div id="homeStatNumbers"></div>
+        <div id="awayStatNumbers"></div>
+    </div>    <!-- player numbers buttons get appended here -->
+
+    <div id ="statSummaryDisplay">
+        <div id="statsSumtextHolder"></div>
+    </div> <!-- text description on bottom of screen after each event. Displays moost recent event  -->
+
+</div>
+
+<!-- *****************************************    SCORE  ************************************************************************ -->
+
+<div id="Score" class="teamEventScreen container-fluid">
+    <div class="row">
+        <div class="col-md-2 col-sm-6 col-xs-0 col-lg-2"></div>  <!--spacer column -->
+        <div class="headerHolder col-md-2 col-sm-6 col-xs-12 col-lg-8"></div>
+    </div>
+
+    <div id="scoreButtonHolder"  class="row">
+        <div class="col-md-2 col-sm-6 col-xs-0 col-lg-3"></div>  <!--spacer column -->
+        <div class="col-md-2 col-sm-6 col-xs-12 col-lg-8">
+            <div class="btn btn-default nmBtn btn-primary try">TRY</div>
+            <div class="btn btn-default nmBtn btn-warning dropgoal">Drop Goal</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 col-sm-0 col-xs-0"></div>  <!--spacer column -->
+        <div id="kickButtonHolder" class="col-md-9 col-sm-12 col-xs-12"></div>
+    </div>
+
+</div>  <!-- end Score -->
+
+
+<div id="Conversion" class="teamEventScreen col-xs-12 col-sm-12 col-md 4 col-lg-4"><img src=./images/rugbypitch.jpg class="pitchImage">
+    <div class="pitchLogoHolder"><img src="./images/whatstat_logo.png" alt="whatstat logo"></div>
+    <div class="headerHolder"></div>
+</div>
+
+<div id="DropGoal" class="teamEventScreen col-xs-12 col-sm-12 col-md 4 col-lg-4"><img src=./images/rugbypitch.jpg class="pitchImage">
+    <div class="pitchLogoHolder"><img src="./images/whatstat_logo.png" alt="whatstat logo"></div>
+    <div class="headerHolder"></div>
+</div>
+
+<!-- ****************************************************** Penalty PAGE ******************************************************************* -->
+
+<div id="Penalty" class="teamEventScreen col-xs-12 col-sm-12 col-md 4 col-lg-4"><img src=./images/rugbypitch.jpg class="pitchImage">
+    <div class="pitchLogoHolder"><img src="./images/whatstat_logo.png" alt="whatstat logo"></div>
+    <div class="headerHolder"></div>
+</div>
+
+
+
+<!-- *****************************************   SCRUM Page  ************************************************************************ -->
+
+<div id="Scrum" class="teamEventScreen col-xs-12 col-sm-12 col-md 4 col-lg-4"><img src=./images/rugbypitch.jpg class="pitchImage">
+    <div class="pitchLogoHolder"><img src="./images/whatstat_logo.png" alt="whatstat logo"></div>
+    <div class="headerHolder"></div>
+</div>
+
+<!-- ************************************************************** LINEOUT PAGE ************************************************************** -->
+<div id="LineOut" class="teamEventScreen col-xs-12 col-sm-12 col-md 4 col-lg-4"><img src=./images/rugbypitch.jpg class="pitchImage">
+    <div class="pitchLogoHolder"><img src="./images/whatstat_logo.png" alt="whatstat logo"></div>
+    <div class="headerHolder"></div>
+</div>
+
+<!-- **************************************** Zoneholder must be AFTER all the divs above ********************************************-->
+
+<div id="zoneHolder" class="col-xs-12 col-sm-12 col-md 4 col-lg-4">           <!-- Zone Holder has a div for each section of the pitch. Used this instead of coords as can use the div id regardless of screen size -->
+
+
+    <div class="pitchZoneHolder">
+        <div id="PZ01" class="pitchZone"></div>
+        <div id="PZ02" class="pitchZone"></div>
+        <div id="PZ03" class="pitchZone"></div>
+        <div id="PZ04" class="pitchZone"></div>
+        <div id="PZ05" class="pitchZone"></div>
+        <div id="PZ06" class="pitchZone"></div>
+        <div id="PZ07" class="pitchZone"></div>
+        <div id="PZ08" class="pitchZone"></div>
+        <div id="PZ09" class="pitchZone"></div>
+        <div id="PZ010" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ11" class="pitchZone"></div>
+        <div id="PZ12" class="pitchZone"></div>
+        <div id="PZ13" class="pitchZone"></div>
+        <div id="PZ14" class="pitchZone"></div>
+        <div id="PZ15" class="pitchZone"></div>
+        <div id="PZ16" class="pitchZone"></div>
+        <div id="PZ17" class="pitchZone"></div>
+        <div id="PZ18" class="pitchZone"></div>
+        <div id="PZ19" class="pitchZone"></div>
+        <div id="PZ110"class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ21" class="pitchZone"></div>
+        <div id="PZ22" class="pitchZone"></div>
+        <div id="PZ23" class="pitchZone"></div>
+        <div id="PZ24" class="pitchZone"></div>
+        <div id="PZ25" class="pitchZone"></div>
+        <div id="PZ26" class="pitchZone"></div>
+        <div id="PZ27" class="pitchZone"></div>
+        <div id="PZ28" class="pitchZone"></div>
+        <div id="PZ29" class="pitchZone"></div>
+        <div id="PZ210" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ31" class="pitchZone"></div>
+        <div id="PZ32" class="pitchZone"></div>
+        <div id="PZ33" class="pitchZone"></div>
+        <div id="PZ34" class="pitchZone"></div>
+        <div id="PZ35" class="pitchZone"></div>
+        <div id="PZ36" class="pitchZone"></div>
+        <div id="PZ37" class="pitchZone"></div>
+        <div id="PZ38" class="pitchZone"></div>
+        <div id="PZ39" class="pitchZone"></div>
+        <div id="PZ310" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ41" class="pitchZone"></div>
+        <div id="PZ42" class="pitchZone"></div>
+        <div id="PZ43" class="pitchZone"></div>
+        <div id="PZ44" class="pitchZone"></div>
+        <div id="PZ45" class="pitchZone"></div>
+        <div id="PZ46" class="pitchZone"></div>
+        <div id="PZ47" class="pitchZone"></div>
+        <div id="PZ48" class="pitchZone"></div>
+        <div id="PZ49" class="pitchZone"></div>
+        <div id="PZ410" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ51" class="pitchZone"></div>
+        <div id="PZ52" class="pitchZone"></div>
+        <div id="PZ53" class="pitchZone"></div>
+        <div id="PZ54" class="pitchZone"></div>
+        <div id="PZ55" class="pitchZone"></div>
+        <div id="PZ56" class="pitchZone"></div>
+        <div id="PZ57" class="pitchZone"></div>
+        <div id="PZ58" class="pitchZone"></div>
+        <div id="PZ59" class="pitchZone"></div>
+        <div id="PZ510" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ61" class="pitchZone"></div>
+        <div id="PZ62" class="pitchZone"></div>
+        <div id="PZ63" class="pitchZone"></div>
+        <div id="PZ64" class="pitchZone"></div>
+        <div id="PZ65" class="pitchZone"></div>
+        <div id="PZ66" class="pitchZone"></div>
+        <div id="PZ67" class="pitchZone"></div>
+        <div id="PZ68" class="pitchZone"></div>
+        <div id="PZ69" class="pitchZone"></div>
+        <div id="PZ610" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ71" class="pitchZone"></div>
+        <div id="PZ72" class="pitchZone"></div>
+        <div id="PZ73" class="pitchZone"></div>
+        <div id="PZ74" class="pitchZone"></div>
+        <div id="PZ75" class="pitchZone"></div>
+        <div id="PZ76" class="pitchZone"></div>
+        <div id="PZ77" class="pitchZone"></div>
+        <div id="PZ78" class="pitchZone"></div>
+        <div id="PZ79" class="pitchZone"></div>
+        <div id="PZ710" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ81" class="pitchZone"></div>
+        <div id="PZ82" class="pitchZone"></div>
+        <div id="PZ83" class="pitchZone"></div>
+        <div id="PZ84" class="pitchZone"></div>
+        <div id="PZ85" class="pitchZone"></div>
+        <div id="PZ86" class="pitchZone"></div>
+        <div id="PZ87" class="pitchZone"></div>
+        <div id="PZ88" class="pitchZone"></div>
+        <div id="PZ89" class="pitchZone"></div>
+        <div id="PZ810" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ91" class="pitchZone"></div>
+        <div id="PZ92" class="pitchZone"></div>
+        <div id="PZ93" class="pitchZone"></div>
+        <div id="PZ94" class="pitchZone"></div>
+        <div id="PZ95" class="pitchZone"></div>
+        <div id="PZ96" class="pitchZone"></div>
+        <div id="PZ97" class="pitchZone"></div>
+        <div id="PZ98" class="pitchZone"></div>
+        <div id="PZ99" class="pitchZone"></div>
+        <div id="PZ910"class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ101" class="pitchZone"></div>
+        <div id="PZ102" class="pitchZone"></div>
+        <div id="PZ103" class="pitchZone"></div>
+        <div id="PZ104" class="pitchZone"></div>
+        <div id="PZ105" class="pitchZone"></div>
+        <div id="PZ106" class="pitchZone"></div>
+        <div id="PZ107" class="pitchZone"></div>
+        <div id="PZ108" class="pitchZone"></div>
+        <div id="PZ109" class="pitchZone"></div>
+        <div id="PZ1010" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ111" class="pitchZone"></div>
+        <div id="PZ112" class="pitchZone"></div>
+        <div id="PZ113" class="pitchZone"></div>
+        <div id="PZ114" class="pitchZone"></div>
+        <div id="PZ115" class="pitchZone"></div>
+        <div id="PZ116" class="pitchZone"></div>
+        <div id="PZ117" class="pitchZone"></div>
+        <div id="PZ118" class="pitchZone"></div>
+        <div id="PZ119" class="pitchZone"></div>
+        <div id="PZ1110" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ121" class="pitchZone"></div>
+        <div id="PZ122" class="pitchZone"></div>
+        <div id="PZ123" class="pitchZone"></div>
+        <div id="PZ124" class="pitchZone"></div>
+        <div id="PZ125" class="pitchZone"></div>
+        <div id="PZ126" class="pitchZone"></div>
+        <div id="PZ127" class="pitchZone"></div>
+        <div id="PZ128" class="pitchZone"></div>
+        <div id="PZ129" class="pitchZone"></div>
+        <div id="PZ1210" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ131" class="pitchZone"></div>
+        <div id="PZ132" class="pitchZone"></div>
+        <div id="PZ133" class="pitchZone"></div>
+        <div id="PZ134" class="pitchZone"></div>
+        <div id="PZ135" class="pitchZone"></div>
+        <div id="PZ136" class="pitchZone"></div>
+        <div id="PZ137" class="pitchZone"></div>
+        <div id="PZ138" class="pitchZone"></div>
+        <div id="PZ139" class="pitchZone"></div>
+        <div id="PZ1310" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ141" class="pitchZone"></div>
+        <div id="PZ142" class="pitchZone"></div>
+        <div id="PZ143" class="pitchZone"></div>
+        <div id="PZ144" class="pitchZone"></div>
+        <div id="PZ145" class="pitchZone"></div>
+        <div id="PZ146" class="pitchZone"></div>
+        <div id="PZ147" class="pitchZone"></div>
+        <div id="PZ148" class="pitchZone"></div>
+        <div id="PZ149" class="pitchZone"></div>
+        <div id="PZ1410" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ151" class="pitchZone"></div>
+        <div id="PZ152" class="pitchZone"></div>
+        <div id="PZ153" class="pitchZone"></div>
+        <div id="PZ154" class="pitchZone"></div>
+        <div id="PZ155" class="pitchZone"></div>
+        <div id="PZ156" class="pitchZone"></div>
+        <div id="PZ157" class="pitchZone"></div>
+        <div id="PZ158" class="pitchZone"></div>
+        <div id="PZ159" class="pitchZone"></div>
+        <div id="PZ1510" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ161" class="pitchZone"></div>
+        <div id="PZ162" class="pitchZone"></div>
+        <div id="PZ163" class="pitchZone"></div>
+        <div id="PZ164" class="pitchZone"></div>
+        <div id="PZ165" class="pitchZone"></div>
+        <div id="PZ166" class="pitchZone"></div>
+        <div id="PZ167" class="pitchZone"></div>
+        <div id="PZ168" class="pitchZone"></div>
+        <div id="PZ169" class="pitchZone"></div>
+        <div id="PZ1610" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ171" class="pitchZone"></div>
+        <div id="PZ172" class="pitchZone"></div>
+        <div id="PZ173" class="pitchZone"></div>
+        <div id="PZ174" class="pitchZone"></div>
+        <div id="PZ175" class="pitchZone"></div>
+        <div id="PZ176" class="pitchZone"></div>
+        <div id="PZ177" class="pitchZone"></div>
+        <div id="PZ178" class="pitchZone"></div>
+        <div id="PZ179" class="pitchZone"></div>
+        <div id="PZ1710" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ181" class="pitchZone"></div>
+        <div id="PZ182" class="pitchZone"></div>
+        <div id="PZ183" class="pitchZone"></div>
+        <div id="PZ184" class="pitchZone"></div>
+        <div id="PZ185" class="pitchZone"></div>
+        <div id="PZ186" class="pitchZone"></div>
+        <div id="PZ187" class="pitchZone"></div>
+        <div id="PZ188" class="pitchZone"></div>
+        <div id="PZ189" class="pitchZone"></div>
+        <div id="PZ1810" class="pitchZone"></div>
+    </div>
+
+    <div class="pitchZoneHolder">
+        <div id="PZ191" class="pitchZone"></div>
+        <div id="PZ192" class="pitchZone"></div>
+        <div id="PZ193" class="pitchZone"></div>
+        <div id="PZ194" class="pitchZone"></div>
+        <div id="PZ195" class="pitchZone"></div>
+        <div id="PZ196" class="pitchZone"></div>
+        <div id="PZ197" class="pitchZone"></div>
+        <div id="PZ198" class="pitchZone"></div>
+        <div id="PZ199" class="pitchZone"></div>
+        <div id="PZ1910" class="pitchZone"></div>
+    </div>
+
+</div>  <!-- end zoneHolder -->
+
+
+
+
+
+
+<!-- ************************************************************** SUB PAGE ************************************************************** -->
+
+<div id="Sub" class="container-fluid teamEventScreen">
+
+    <div class="row container-fluid">
+        <div class="col-md-4 col-sm-2 col-xs-0 col-lg-4"></div> <!-- spacer -->
+        <div class="col-md-4 col-sm-10 col-xs-12 col-lg-6 sub" id="subsBenchHolder">Available Subs</br><span></span>
+            <div id="subsBench"></div>         <!-- players available to be subbed on gets appended here  -->
+        </div>
+    </div>
+
+
+
+    <div id="subHolder" class="row container-fluid">
+        <div class="col-md-4 col-sm-2 col-xs-0 col-lg-4"></div> <!-- spacer -->
+        <div class="col-md-4 col-sm-10 col-xs-12 col-lg-6 sub" id="currentPlayersHolder">
+            <div id="playerGoingOff" class="playerOn playerOnOff"></div>
+            <div id="playerGoingOn" class="playerOff playerOnOff pull-right"> </div>
+        </div> <!-- end currentPlayersHolder -->
+    </div>  <!-- end SubHolder -->
+
+
+
+    <div class="row container-fluid">
+        <div class="col-md-4 col-sm-2 col-xs-0 col-lg-4"></div> <!-- spacer -->
+        <div class="col-md-4 col-sm-10 col-xs-12 col-lg-6">
+            <div id="onOffArrowsHolder">
+                <div class="arrowLeft col-xs-4">OFF &nbsp<span class="glyphicon glyphicon-arrow-right"></span></div>
+                <div class="arrowSpacer col-xs-4"></div>
+                <div class="arrowRight col-xs-4"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp ON</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row container-fluid">
+        <div class="col-md-2 col-sm-0 col-xs-0 col-lg-4"></div> <!-- spacer -->
+        <div id="subsButton" class="col-xs-12 col-lg-6 btn btn-primary">Make Substitution</div>
+    </div>
+
+</div> <!-- end SUB page -->
+
+
+<!-- ****************************************************** Yellow / RED CARD PAGE ************************************************ -->
+<div id="Card" class="container-fluid teamEventScreen">
+    <div id="cardHolder" class="row">
+        <div class="col-md-2 col-sm-0 col-xs-1 col-lg-2"></div> <!-- spacer -->
+        <div class="col-md-4 col-sm-6 col-xs-5 col-lg-4 card" id="yellowCard">BIN</br><span></span></div>
+        <div class="col-md-4 col-sm-6 col-xs-5 col-lg-4 card" id="redCard">OFF</br><span></span></div>
+    </div>
+</div>
+
+
+<!-- ****************************************************** STATS PAGE ************************************************************* -->
+
+<div id="Stats">
+    <div class="chartHolder">
+        <div class="container" id="homeTeamOverviewChartHolder"></div>  <!--chart goes here gets data from tabe below  style="min-width: 310px; height: 400px; margin: 0 auto" -->
+        <div class="container" id="homeTeamOverviewTableHolder"></div>  <!-- table goes here chart goes above -->
+    </div>
+
+    <div class="chartHolder">
+        <div class="container" id="awayTeamOverviewChartHolder"></div>  <!--chart goes here gets data from tabe below  style="min-width: 310px; height: 400px; margin: 0 auto" -->
+        <div class="container" id="awayTeamOverviewTableHolder"></div>
+    </div>
+
+    <div class="chartHolder">
+        <div class="container" id="singlePlayerChartHolder"></div>
+        <div class="container" id="singlePlayerTableHolder"></div>
+    </div>
+
+    <div class="chartHolder">
+        <div class="container" id="homeAwayTotalsChartHolder"></div>
+        <div class="container" id="homeAwayTotalsTableHolder"></div>
+    </div>
+
+
+    <div class="chartHolder">
+        <div class="container" id="homeAwayScrumLineoutsChartHolder"></div>
+        <div class="container" id="homeAwayScrumLineoutsTableHolder"></div>
+    </div>
+
+
+
+</div>
+<!--   *****************************************************************************************************************************   -->
+
+
+
+
+<div id="info">info</div>
+
+
+
+
+<% include ./partials/footer %>
+</body>
+</html>
+
+
+
+
+
